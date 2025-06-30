@@ -2,10 +2,11 @@
 
 from flask import Flask, request, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
-API_KEY = "acdd8e383d155fc787b93fb1"  # Replace with your actual key if needed
+API_KEY = "acdd8e383d155fc787b93fb1"  # Replace with your actual key
 
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
@@ -51,4 +52,5 @@ def webhook():
         return jsonify({"fulfillmentText": "Sorry, there was an error processing your request."})
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
